@@ -1,0 +1,74 @@
+
+{% extends 'base.html' %}
+{% block body %}
+
+        <div class="ui centered grid container">
+          <div class="ten wide column">
+            <br><br>
+          <div class="ui raised card">
+            <div class="content">
+              <br /><p class="login-title">Register</p>
+            </div>
+            {% if user_form.errors %}
+             {% for field in user_form %}
+                {% for error in field.errors %}
+                    <h3 class="ui warning message center">{{ error|escape }}</h3>
+                {% endfor %}
+             {% endfor %}
+            {% endif %}
+
+            {% for message in messages %}
+                <div class="alert {{ message.tags }} alert-dismissible" role="alert">
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                  {{ message }}
+                </div>
+              {% endfor %}
+
+              <div class="content">
+
+              <form class="ui form" method="POST">
+                {% csrf_token %}
+                <div class="field">
+                  <label for="username" class="auth-label">Username</label>
+                  <div class="ui left icon input ">
+                    {{user_form.username}}<br>
+                    <i class="users icon"></i>
+                  </div>
+                </div>
+
+	           <div class="field">
+                  {{user_profile_form}}
+                </div>
+
+
+                <div class="field">
+                  <label for="password1" class="auth-label">Password</label>
+                  <div class="ui left icon input ">
+                    {{user_form.password1}}<br>
+                    <i class="eye slash icon"></i>
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label for="password2" class="auth-label">Confirm Password</label>
+                  <div class="ui left icon input ">
+                    {{user_form.password2}}<br>
+                    <i class="eye slash icon"></i>
+                  </div>
+                </div>
+                <br />
+                <input type="submit" class="fluid ui inverted blue button" value="Register">
+
+              </form>
+              <br /><br />
+              <p class="center">Register as a company? Click<a href="{% url 'main:company-register' %}">here</a>.</p>
+              <p class="center">Already have an account.<a href="{% url 'main:login' %}">Login</a>.</p>
+<br /><br />
+            </div>
+    </div>
+    </div>
+  </div>
+
+{% endblock %}

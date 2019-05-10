@@ -1,0 +1,55 @@
+
+{% extends 'base.html' %}
+{% block body %}
+
+        <div class="ui centered grid container">
+          <div class="sixteen wide column">
+            <br><br>
+          <div class="ui raised card">
+            <a href="{% url 'main:logout' %}" class="right aligned logout">Logout</a>
+            <div class="content">
+              <br /><p class="login-title">Hey, {{name}} ! </p>
+            </div>
+            {% if user_form.errors %}
+             {% for field in user_form %}
+                {% for error in field.errors %}
+                    <h3 class="ui warning message center">{{ error|escape }}</h3>
+                {% endfor %}
+             {% endfor %}
+            {% endif %}
+
+            {% for message in messages %}
+                <div class="alert {{ message.tags }} alert-dismissible" role="alert">
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                  {{ message }}
+                </div>
+              {% endfor %}
+
+              <div class="content">
+
+              <form class="ui form" method="POST">
+                {% csrf_token %}
+            
+             <div class="field">
+                  {{form}}
+                </div>
+
+
+               
+                <br />
+                <div class="six wide column">
+                <input type="submit" class="fluid ui inverted blue button" value="Update">
+              </div>
+
+              </form>
+              <br /><br />
+    
+<br /><br />
+            </div>
+    </div>
+    </div>
+  </div>
+
+{% endblock %}
